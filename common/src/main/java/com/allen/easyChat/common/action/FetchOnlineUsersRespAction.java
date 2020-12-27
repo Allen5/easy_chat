@@ -1,8 +1,11 @@
 package com.allen.easyChat.common.action;
 
+import com.allen.easyChat.common.vo.UserItem;
 import lombok.Data;
+import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,6 +21,7 @@ public class FetchOnlineUsersRespAction extends Action {
         this.setRequestId(UUID.randomUUID().toString());
     }
 
-    // TODO:
+    @Setter
+    private List<UserItem> users;
 
 }

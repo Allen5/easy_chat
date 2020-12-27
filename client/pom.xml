@@ -28,7 +28,6 @@
 
   <build>
     <finalName>chat-client</finalName>
-    <directory>../target</directory>
     <plugins>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>

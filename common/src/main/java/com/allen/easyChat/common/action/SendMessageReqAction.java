@@ -26,7 +26,7 @@ public class SendMessageReqAction extends Action {
     /**
      * 消息内容格式
      */
-    private String messageType;
+    private Byte messageType;
 
     /**
      * 消息内容

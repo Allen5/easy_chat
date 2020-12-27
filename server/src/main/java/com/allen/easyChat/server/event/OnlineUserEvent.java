@@ -5,7 +5,16 @@ import com.allen.easyChat.common.action.Action;
 import com.allen.easyChat.common.action.FetchOnlineUsersReqAction;
 import com.allen.easyChat.common.action.FetchOnlineUsersRespAction;
 import com.allen.easyChat.common.event.IEvent;
+import com.allen.easyChat.common.vo.UserItem;
+import com.allen.easyChat.server.connection.ConnectionPool;
+import com.allen.easyChat.server.model.User;
+import com.allen.easyChat.server.service.UserService;
+import com.allen.easyChat.server.util.SpringContextUtil;
 import io.netty.channel.Channel;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OnlineUserEvent implements IEvent<Action, Action> {
 
@@ -15,9 +24,21 @@ public class OnlineUserEvent implements IEvent<Action, Action> {
         FetchOnlineUsersReqAction reqAction = JSONObject.parseObject(action.getPayload(), FetchOnlineUsersReqAction.class);
         System.out.println("receive online users: " + reqAction);
 
-        // TODO: 处理业务逻辑
+        List<Long> userIds = ConnectionPool.getInstance().listUserIds();
+        UserService userService = SpringContextUtil.getBean(UserService.class);
+        List<User> users = userService.listUsers(userIds);
 
-        return null;
+        FetchOnlineUsersRespAction respAction = new FetchOnlineUsersRespAction();
+        if ( !CollectionUtils.isEmpty(users) ) {
+            respAction.setUsers(users.stream().map(user -> {
+                UserItem item = new UserItem();
+                item.setUserId(user.getId());
+                item.setMobile(user.getMobile());
+                return item;
+            }).collect(Collectors.toList()));
+        }
+        respAction.setPayload(JSONObject.toJSONString(respAction));
+        return respAction;
     }
 
 }

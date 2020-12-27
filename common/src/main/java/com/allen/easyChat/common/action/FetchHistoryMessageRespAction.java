@@ -1,8 +1,10 @@
 package com.allen.easyChat.common.action;
 
+import com.allen.easyChat.common.vo.MessageItem;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,6 +20,6 @@ public class FetchHistoryMessageRespAction extends Action {
         this.setRequestId(UUID.randomUUID().toString());
     }
 
-    // TODO: 根据业务数据做处理
+    private List<MessageItem> items;
 
 }

@@ -3,10 +3,8 @@ package com.allen.easyChat.client;
 import com.alibaba.fastjson.JSONObject;
 import com.allen.easyChat.client.client.WebSocketClient;
 import com.allen.easyChat.client.event.*;
-import com.allen.easyChat.common.action.ActionIdEnum;
-import com.allen.easyChat.common.action.LoginReqAction;
+import com.allen.easyChat.common.action.*;
 import com.allen.easyChat.common.event.EventPool;
-import io.netty.channel.EventLoop;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -129,15 +127,24 @@ public class ClientApplication implements CommandLineRunner {
     }
 
     private void fetchOnlineUsers(final int page, final int count) {
-        // TODO:
+        FetchOnlineUsersReqAction action = new FetchOnlineUsersReqAction();
+        action.setPage(page);
+        action.setCount(count);
+        this.client.send(action, JSONObject.toJSONString(action));
     }
 
     private void sendMessage(final long userId, final String message) {
-        // TODO:
+        SendMessageReqAction action = new SendMessageReqAction();
+        action.setToUserId(userId);
+        action.setMessageType((byte) 0);
+        action.setMessage(message);
+        this.client.send(action, JSONObject.toJSONString(action));
     }
 
     private void fetchHistoryMessage(final long userId) {
-        // TODO:
+        FetchHistoryMessageReqAction action = new FetchHistoryMessageReqAction();
+        action.setUserId(userId);
+        this.client.send(action, JSONObject.toJSONString(action));
     }
 
 }

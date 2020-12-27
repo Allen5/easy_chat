@@ -31,12 +31,12 @@ public class ReceiveMessageNotifyAction extends Action {
     /**
      * 消息id
      */
-    private String messageId;
+    private Long messageId;
 
     /**
      * 消息内容格式
      */
-    private String messageType;
+    private Byte messageType;
 
     /**
      * 消息内容

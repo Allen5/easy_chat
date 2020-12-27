@@ -21,6 +21,6 @@ public class ReceiveMessageNotifyAckAction extends Action {
     /**
      * 消息id
      */
-    private String messageId;
+    private Long messageId;
 
 }
