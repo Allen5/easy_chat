@@ -8,6 +8,9 @@ public class EventPool {
     private EventPool() {
         events = new ConcurrentHashMap<>();
     }
+    public static EventPool getInstance() {
+        return INSTANCE;
+    }
 
     private ConcurrentHashMap<String, IEvent> events;
 

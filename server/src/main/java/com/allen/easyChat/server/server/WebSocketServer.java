@@ -1,6 +1,9 @@
 package com.allen.easyChat.server.server;
 
-import com.allen.easyChat.common.action.LoginReqAction;
+import com.alibaba.fastjson.JSONObject;
+import com.allen.easyChat.common.action.Action;
+import com.allen.easyChat.common.event.EventPool;
+import com.allen.easyChat.common.event.IEvent;
 import com.allen.easyChat.server.connection.ConnectionPool;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -89,8 +92,24 @@ public class WebSocketServer {
             }
             TextWebSocketFrame request = (TextWebSocketFrame) o;
             System.out.println("received text: " + request.text());
-            // TODO:
-            ctx.writeAndFlush(new TextWebSocketFrame("服务端返回: " + request.text()));
+            Action action;
+            try {
+               action = JSONObject.parseObject(request.text(), Action.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("transfer to object from json string failed. data: " + request.text());
+                return ;
+            }
+            IEvent<Action, Action> event = EventPool.getInstance().find(action.getAction());
+            if ( null == event ) {
+                System.out.println("no event found for key: " + action.getAction());
+                return ;
+            }
+            Action respAction = event.handle(action, ctx.channel());
+            if ( null != respAction ) {
+                System.out.println("resp action: " + action);
+                ctx.writeAndFlush(new TextWebSocketFrame(JSONObject.toJSONString(respAction)));
+            }
         }
     }
 
