@@ -2,9 +2,11 @@ package com.allen.easyChat.server.server;
 
 import com.alibaba.fastjson.JSONObject;
 import com.allen.easyChat.common.action.Action;
+import com.allen.easyChat.common.action.ActionIdEnum;
 import com.allen.easyChat.common.event.EventPool;
 import com.allen.easyChat.common.event.IEvent;
 import com.allen.easyChat.server.connection.ConnectionPool;
+import com.allen.easyChat.server.event.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -34,6 +36,7 @@ public class WebSocketServer {
     }
 
     public void start(final short port) {
+        this.registeEvent();
         this.init();
         try {
             ChannelFuture future = bootstrap.bind(port).sync();
@@ -42,6 +45,18 @@ public class WebSocketServer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 注册事件
+     */
+    private void registeEvent() {
+        EventPool.getInstance().registe(ActionIdEnum.ACTION_LOGIN_REQ.getAction(), new LoginEvent());
+        EventPool.getInstance().registe(ActionIdEnum.ACTION_FETCH_ONLINE_USERS_REQ.getAction(), new OnlineUserEvent());
+        EventPool.getInstance().registe(ActionIdEnum.ACTION_SEND_MESSAGE_REQ.getAction(), new SendMessageEvent());
+        EventPool.getInstance().registe(ActionIdEnum.ACTION_RECEIVE_MESSAGE_NOTIFY_ACK.getAction(), new ReceiveMessageEvent());
+        EventPool.getInstance().registe(ActionIdEnum.ACTION_FETCH_HISTORY_MESSAGE_REQ.getAction(), new HistoryMessageEvent());
+
     }
 
     private void init() {

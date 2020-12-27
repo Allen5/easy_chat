@@ -42,7 +42,17 @@ public enum ActionIdEnum {
     /**
      * 接收消息推送确认
      */
-    ACTION_RECEIVE_MESSAGE_NOTIFY_ACK("receive_msg_ack", "接收消息推送确认")
+    ACTION_RECEIVE_MESSAGE_NOTIFY_ACK("receive_msg_ack", "接收消息推送确认"),
+
+    /**
+     * 获取历史消息请求
+     */
+    ACTION_FETCH_HISTORY_MESSAGE_REQ("fetch_history_msg_req", "获取历史消息请求"),
+
+    /**
+     * 获取历史消息响应
+     */
+    ACTION_FETCH_HISTORY_MESSAGE_RESP("fetch_history_msg_resp", "获取历史消息响应"),
     ;
 
     @Getter

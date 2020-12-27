@@ -1,0 +1,56 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="useMapperCommentGenerator" value="true"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!--配置后生成的 Mapper 接口都会自动继承上改接口-->
+            <property name="mappers" value="com.allen.easyChat.server.util.MyMapper"/>
+            <!--是否区分大小写，默认值 false。如果数据库区分大小写，这里就需要配置为 true，这样当表名为 USER 时，会生成 @Table(name = "USER") 注解，否则使用小写 user 时会找不到表-->
+            <property name="caseSensitive" value="true"/>
+            <!--是否强制生成注解，默认 false，如果设置为 true，不管数据库名和字段名是否一致，都会生成注解（包含 @Table 和 @Column）-->
+            <property name="forceAnnotation" value="true"/>
+            <!--在生成的 model中，增加字段名的常量，便于使用 Example 拼接查询条件的时候使用-->
+            <property name="generateColumnConsts" value="true"/>
+            <!--是否生成默认的属性的静态方法-->
+            <!--<property name="generateDefaultInstanceMethod" value="true"/>-->
+            <!--开始和结束分隔符，对于有关键字的情况下适用-->
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+            <!--使用Data注解时，Getter,Setter,ToString,EqualsAndHashCode注解无效-->
+            <!--property name="lombok" value="Getter,Setter,ToString,Accessors,EqualsAndHashCode"/>-->
+            <property name="lombok" value="Data,Accessors"/>
+            <!--是否生成swagger注解,包括 @ApiModel和@ApiModelProperty-->
+            <!--<property name="swagger" value="true"/>-->
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://49.235.110.229:3306/easychat?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;nullCatalogMeansCurrent=true"
+                        userId="product"
+                        password="develop">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.allen.easyChat.server.model" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper/model" targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.allen.easyChat.server.mapper" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+
+<!--        <table tableName="user" domainObjectName="User">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+
+<!--        <table tableName="message" domainObjectName="Message">-->
+<!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+<!--        </table>-->
+
+    </context>
+</generatorConfiguration>
+
+

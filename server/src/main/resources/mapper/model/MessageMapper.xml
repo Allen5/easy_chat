@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.allen.easyChat.server.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.allen.easyChat.server.model.Message">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="from_user_id" jdbcType="BIGINT" property="fromUserId" />
+    <result column="to_user_id" jdbcType="BIGINT" property="toUserId" />
+    <result column="message_type" jdbcType="TINYINT" property="messageType" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="send_timestamp" jdbcType="BIGINT" property="sendTimestamp" />
+    <result column="recv_timestamp" jdbcType="BIGINT" property="recvTimestamp" />
+  </resultMap>
+</mapper>

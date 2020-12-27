@@ -42,6 +42,24 @@ public class WebSocketClient {
         }
     }
 
+    /**
+     * 发送数据包
+     * @param action
+     * @param payload
+     */
+    public void send(final Action action, final String payload) {
+        if ( null == action ) {
+            System.out.println("empty action");
+            return ;
+        }
+        if ( null == payload || payload.isEmpty() ) {
+            System.out.println("payload is null");
+            return ;
+        }
+        action.setPayload(payload);
+        channel.writeAndFlush(new TextWebSocketFrame(JSONObject.toJSONString(action)));
+    }
+
     private void init() {
         bootstrap = new Bootstrap();
         bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
