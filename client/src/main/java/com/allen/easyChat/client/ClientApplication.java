@@ -30,6 +30,8 @@ public class ClientApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        this.registeEvent();
+
         this.connect();
 
         this.handleCommand();

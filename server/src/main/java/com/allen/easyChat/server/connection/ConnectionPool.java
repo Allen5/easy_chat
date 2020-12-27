@@ -12,6 +12,7 @@ public class ConnectionPool {
     private static final ConnectionPool INSTANCE = new ConnectionPool();
     private ConnectionPool() {
         this.users = new ConcurrentHashMap<>();
+        this.userIds = new ConcurrentHashMap<>();
         this.channels = new ConcurrentHashMap<>();
     }
     public static ConnectionPool getInstance() {

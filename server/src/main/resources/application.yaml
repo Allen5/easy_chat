@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: chat-server
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: ${PROFILES}
+  servlet:
+    multipart:
+      maxFileSize: 2048MB
+      maxRequestSize: 2048MB
+  datasource:
+    name: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://49.235.110.229:3306/easychat?useUnicode=true&characterEncoding=utf-8&useSSL=true
+      username: product
+      password: develop
+      max-active: 200
+      max-wait: 2000
