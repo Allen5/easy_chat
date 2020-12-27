@@ -1,5 +1,7 @@
-package com.allen.easyChat.server;
+package com.allen.easyChat.server.server;
 
+import com.allen.easyChat.common.action.LoginReqAction;
+import com.allen.easyChat.server.connection.ConnectionPool;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -75,6 +77,7 @@ public class WebSocketServer {
         @Override
         public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
             System.out.println("connection closed with address: " + ctx.channel().remoteAddress());
+            ConnectionPool.getInstance().removeByChannelId(ctx.channel().id().asLongText());
         }
 
         @Override
