@@ -70,6 +70,8 @@ public class SendMessageEvent implements IEvent<Action, Action> {
         message.setMessageType(reqAction.getMessageType());
         message.setContent(reqAction.getMessage());
         message.setSendTimestamp(System.currentTimeMillis());
+        message.setStatus((byte) 0);
+        message.setRecvTimestamp(0L);
         MessageService messageService = SpringContextUtil.getBean(MessageService.class);
         message = messageService.add(message);
 
