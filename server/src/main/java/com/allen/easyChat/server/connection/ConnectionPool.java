@@ -3,10 +3,7 @@ package com.allen.easyChat.server.connection;
 import io.netty.channel.Channel;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -93,12 +90,14 @@ public class ConnectionPool {
      * @return
      */
     public List<Long> listUserIds() {
-        List<Long> userIds = new ArrayList<>();
-        Iterator<Long> iterator = userIds.iterator();
-        while (iterator.hasNext()) {
-            userIds.add(iterator.next());
+        List<Long> ids = new ArrayList<>();
+        Enumeration<Long> enumeration = users.keys();
+        while (enumeration.hasMoreElements()) {
+            Long id = enumeration.nextElement();
+            System.out.println("userId: " + id);
+            ids.add(id);
         }
-        return userIds;
+        return ids;
     }
 
     public Long getUserId(final String channelId) {

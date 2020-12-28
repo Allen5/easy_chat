@@ -56,6 +56,13 @@ public class SendMessageEvent implements IEvent<Action, Action> {
             return respAction;
         }
 
+        // 不能发送消息给自己
+        if ( fromUserId.equals(reqAction.getToUserId()) ) {
+            System.out.println("can not send message to self!");
+            respAction.setPayload(JSONObject.toJSONString(respAction));
+            return respAction;
+        }
+
         // 往消息表插入消息数据
         Message message = new Message();
         message.setFromUserId(fromUserId);
